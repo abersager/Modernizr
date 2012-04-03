@@ -4,13 +4,15 @@ var testDeclaration = ' #modernizr { background-image: url(data:image/svg+xml;ba
 
 Modernizr.testStyles(testDeclaration, function (elem, rule) {
   var result = false;
-  try {
-    result = !!((window.getComputedStyle ?
-                  getComputedStyle(elem, null) :
-                  elem.currentStyle)['background-image']);
-  }
-  catch (e) {
-    // Firefox 3 throws NS_ERROR_DOM_NOT_SUPPORTED_ERR
+  if (Modernizr.svg) {
+    try {
+      result = !!((window.getComputedStyle ?
+                    getComputedStyle(elem, null) :
+                    elem.currentStyle)['backgroundImage']);
+    }
+    catch (e) {
+      // Firefox 3 throws NS_ERROR_DOM_NOT_SUPPORTED_ERR
+    }
   }
   Modernizr.addTest('bgimagesvgdatauri', result);
 });
